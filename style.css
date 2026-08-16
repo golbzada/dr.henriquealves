@@ -360,7 +360,8 @@ h1, h2, h3, h4, .font-serif {
 /* Mobile Toggle Icon (SVG Vetorial Luxo) */
 .mobile-toggle {
   position: absolute;
-  right: var(--container-padding);
+  left: var(--container-padding);
+  right: auto;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -450,15 +451,16 @@ h1, h2, h3, h4, .font-serif {
 .mobile-drawer {
   position: fixed;
   top: 0;
-  right: -100%;
+  left: -100%;
+  right: auto;
   width: 82vw;
   max-width: 330px;
   height: 100vh;
   height: 100dvh;
   background-color: var(--bg-primary);
   z-index: 9999;
-  box-shadow: -12px 0 35px rgba(0, 0, 0, 0.18);
-  transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+  box-shadow: 12px 0 35px rgba(0, 0, 0, 0.18);
+  transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
               opacity 0.4s ease, 
               visibility 0.4s ease;
   display: flex;
@@ -469,7 +471,7 @@ h1, h2, h3, h4, .font-serif {
 }
 
 .mobile-drawer.active {
-  right: 0;
+  left: 0;
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
@@ -478,10 +480,10 @@ h1, h2, h3, h4, .font-serif {
 .drawer-inner {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   height: 100%;
-  padding: 5.25rem 1.5rem 2rem;
+  padding: 5.25rem 2rem 2rem;
   gap: 1.75rem;
   overflow-y: auto;
 }
@@ -490,8 +492,9 @@ h1, h2, h3, h4, .font-serif {
   list-style: none;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 1.5rem;
-  text-align: center;
+  text-align: left;
   margin: 0;
   padding: 0;
   width: 100%;
@@ -505,6 +508,7 @@ h1, h2, h3, h4, .font-serif {
   transition: color var(--transition-fast);
   display: inline-block;
   padding: 0.25rem 0;
+  text-align: left;
 }
 
 .mobile-nav-list a:hover,
