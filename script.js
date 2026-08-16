@@ -17,21 +17,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 2. Mobile Menu Fullscreen Overlay (Suporte robusto a toque em celular real)
+  // 2. Mobile Menu Side-out Drawer & Dimmed Overlay
   const mobileToggle = document.querySelector('.mobile-toggle');
   const mobileOverlay = document.querySelector('.mobile-menu-overlay');
+  const mobileDrawer = document.querySelector('.mobile-drawer');
   const mobileNavLinks = document.querySelectorAll('.mobile-nav-list a');
 
   function openMobileMenu() {
-    if (!mobileOverlay) return;
-    mobileOverlay.classList.add('active');
+    mobileOverlay?.classList.add('active');
+    mobileDrawer?.classList.add('active');
     mobileToggle?.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
 
   function closeMobileMenu() {
-    if (!mobileOverlay) return;
-    mobileOverlay.classList.remove('active');
+    mobileOverlay?.classList.remove('active');
+    mobileDrawer?.classList.remove('active');
     mobileToggle?.classList.remove('active');
     document.body.style.overflow = '';
   }
@@ -48,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     
-    if (mobileOverlay?.classList.contains('active')) {
+    if (mobileDrawer?.classList.contains('active')) {
       closeMobileMenu();
     } else {
       openMobileMenu();
@@ -76,12 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Fechar ao tocar no overlay de fundo fora dos elementos de navegação
-  mobileOverlay?.addEventListener('click', (e) => {
-    if (e.target === mobileOverlay) {
-      closeMobileMenu();
-    }
-  });
+  // Fechar ao tocar no overlay escurecido de fundo
+  mobileOverlay?.addEventListener('click', closeMobileMenu);
 
   // 3. Gallery Filtering
   const filterBtns = document.querySelectorAll('.filter-btn');
