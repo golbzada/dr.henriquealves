@@ -17,95 +17,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 2. Mobile Menu Side-out Drawer & Dimmed Overlay (Com suporte a 2 botões independentes)
-  const mobileToggle = document.querySelector('.mobile-toggle');
-  const mobileToggleV2 = document.querySelector('.mobile-toggle-v2');
-  const mobileOverlay = document.querySelector('.mobile-menu-overlay');
-  const mobileDrawer = document.querySelector('.mobile-drawer');
-  const mobileNavLinks = document.querySelectorAll('.mobile-nav-list a');
-
-  function openMobileMenu() {
-    mobileOverlay?.classList.add('active');
-    mobileDrawer?.classList.add('active');
-    mobileToggle?.classList.add('active');
-    mobileToggleV2?.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeMobileMenu() {
-    mobileOverlay?.classList.remove('active');
-    mobileDrawer?.classList.remove('active');
-    mobileToggle?.classList.remove('active');
-    mobileToggleV2?.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
-  let lastTouchTime = 0;
-
-  // Handler do Botão 1 (Esquerda - Mantido)
-  function toggleMobileMenu(e) {
-    if (e && e.type === 'touchend') {
-      lastTouchTime = Date.now();
-      if (e.cancelable) e.preventDefault();
-    } else if (e && e.type === 'click') {
-      if (Date.now() - lastTouchTime < 500) {
-        return; // Evita disparo duplo caso o navegador sintetize evento click logo após touchend
-      }
-    }
-    
-    if (mobileDrawer?.classList.contains('active')) {
-      closeMobileMenu();
-    } else {
-      openMobileMenu();
-    }
-  }
-
-  // Handler Exclusivo do Botão 2 (Direita - Novo Botão Terracota com Bolinha -> X)
-  function toggleMobileMenuV2(e) {
-    if (e && e.type === 'touchend') {
-      lastTouchTime = Date.now();
-      if (e.cancelable) e.preventDefault();
-    } else if (e && e.type === 'click') {
-      if (Date.now() - lastTouchTime < 500) {
-        return; // Evita disparo duplo caso o navegador sintetize evento click logo após touchend
-      }
-    }
-    
-    if (mobileDrawer?.classList.contains('active')) {
-      closeMobileMenu();
-    } else {
-      openMobileMenu();
-    }
-  }
-
-  if (mobileToggle) {
-    mobileToggle.addEventListener('touchend', toggleMobileMenu, { passive: false });
-    mobileToggle.addEventListener('click', toggleMobileMenu);
-  }
-
-  if (mobileToggleV2) {
-    mobileToggleV2.addEventListener('touchend', toggleMobileMenuV2, { passive: false });
-    mobileToggleV2.addEventListener('click', toggleMobileMenuV2);
-  }
-
-  mobileNavLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-      closeMobileMenu();
-      const targetId = link.getAttribute('href');
-      if (targetId && targetId.startsWith('#')) {
+  // 2. Smooth Scroll em Links Internos (Desktop e Geral)
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const targetId = this.getAttribute('href');
+      if (targetId && targetId !== '#' && targetId.startsWith('#')) {
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
           e.preventDefault();
-          setTimeout(() => {
-            targetElement.scrollIntoView({ behavior: 'smooth' });
-          }, 150);
+          targetElement.scrollIntoView({ behavior: 'smooth' });
         }
       }
     });
   });
-
-  // Fechar ao tocar no overlay escurecido de fundo
-  mobileOverlay?.addEventListener('click', closeMobileMenu);
 
   // 3. Gallery Filtering
   const filterBtns = document.querySelectorAll('.filter-btn');
