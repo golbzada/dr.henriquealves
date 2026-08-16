@@ -17,35 +17,55 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 2. Mobile Menu Toggle
+  // 2. Mobile Menu Fullscreen Overlay
   const mobileToggle = document.querySelector('.mobile-toggle');
-  const mobileMenu = document.querySelector('.mobile-menu');
   const mobileOverlay = document.querySelector('.mobile-menu-overlay');
   const mobileNavLinks = document.querySelectorAll('.mobile-nav-list a');
 
   function openMobileMenu() {
-    mobileMenu?.classList.add('active');
-    mobileOverlay?.classList.add('active');
+    if (!mobileOverlay) return;
+    mobileOverlay.classList.add('active');
+    mobileToggle?.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
 
   function closeMobileMenu() {
-    mobileMenu?.classList.remove('active');
-    mobileOverlay?.classList.remove('active');
+    if (!mobileOverlay) return;
+    mobileOverlay.classList.remove('active');
+    mobileToggle?.classList.remove('active');
     document.body.style.overflow = '';
   }
 
-  mobileToggle?.addEventListener('click', () => {
-    if (mobileMenu?.classList.contains('active')) {
+  mobileToggle?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (mobileOverlay?.classList.contains('active')) {
       closeMobileMenu();
     } else {
       openMobileMenu();
     }
   });
 
-  mobileOverlay?.addEventListener('click', closeMobileMenu);
   mobileNavLinks.forEach(link => {
-    link.addEventListener('click', closeMobileMenu);
+    link.addEventListener('click', (e) => {
+      closeMobileMenu();
+      const targetId = link.getAttribute('href');
+      if (targetId && targetId.startsWith('#')) {
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          e.preventDefault();
+          setTimeout(() => {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+          }, 150);
+        }
+      }
+    });
+  });
+
+  // Fechar ao tocar no overlay de fundo fora dos elementos de navegação
+  mobileOverlay?.addEventListener('click', (e) => {
+    if (e.target === mobileOverlay) {
+      closeMobileMenu();
+    }
   });
 
   // 3. Gallery Filtering

@@ -69,34 +69,26 @@
     <div class="gradient-signature-line"></div>
   </header>
 
-  <!-- Mobile Drawer Menu -->
-  <div class="mobile-menu-overlay"></div>
-  <aside class="mobile-menu" aria-label="Menu Mobile">
-    <div>
-      <div class="brand-logo" style="margin-bottom: 2rem;">
-        <div class="brand-mark">
-          <svg class="brand-svg" viewBox="248 68 184 184" role="img" aria-label="Monograma Dr. Henrique Alves">
-            <rect x="260" y="80" width="160" height="160" fill="none" stroke="currentColor" stroke-width="4"/>
-            <rect x="305" y="110" width="16" height="100" fill="currentColor"/>
-            <rect x="375" y="110" width="6" height="100" fill="currentColor"/>
-            <rect x="330" y="152" width="45" height="6" fill="currentColor"/>
-          </svg>
-        </div>
-        <span class="brand-name">DR. HENRIQUE ALVES</span>
+  <!-- Mobile Fullscreen Menu Overlay -->
+  <div class="mobile-menu-overlay" aria-label="Menu Mobile" id="mobile-menu-overlay">
+    <div class="mobile-menu-content">
+      <nav aria-label="Navegação Mobile">
+        <ul class="mobile-nav-list">
+          <li><a href="#resultados">Resultados</a></li>
+          <li><a href="#sobre">Sobre o Dr. Henrique</a></li>
+          <li><a href="#diferenciais">Diferenciais</a></li>
+          <li><a href="#localizacao">Localização</a></li>
+        </ul>
+      </nav>
+
+      <div class="mobile-menu-cta">
+        <a href="https://wa.me/5591982058355?text=Vim%20do%20site%20do%20Dr.%20Henrique%20e%20gostaria%20de%20saber%20mais" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="mobile-overlay-whatsapp-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          Agendar Avaliação
+        </a>
       </div>
-      <ul class="mobile-nav-list">
-        <li><a href="#resultados">Resultados</a></li>
-        <li><a href="#sobre">Sobre o Dr. Henrique</a></li>
-        <li><a href="#diferenciais">Diferenciais</a></li>
-        <li><a href="#localizacao">Localização</a></li>
-      </ul>
     </div>
-    <div style="margin-top: 2rem;">
-      <a href="https://wa.me/5591982058355?text=Vim%20do%20site%20do%20Dr.%20Henrique%20e%20gostaria%20de%20saber%20mais" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-full">
-        Agende sua avaliação
-      </a>
-    </div>
-  </aside>
+  </div>
 
   <!-- ==========================================
        2. HERO SECTION
@@ -140,7 +132,7 @@
             <img src="assets/head.jpg" alt="Dr. Henrique Alves em seu consultório">
             <div class="hero-floating-card">
               <p>Dr. Henrique Alves</p>
-              <span>Farmacêutico Clínico/Esteta • CRF/PA 5356</span>
+              <span>Farmacêutico Clínico/Esteta <span class="crf-group">• CRF/PA 5356</span></span>
             </div>
           </div>
         </div>
