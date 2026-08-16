@@ -19,7 +19,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="./style.css?v=5">
+  <link rel="stylesheet" href="./style.css?v=6">
 </head>
 <body>
 
@@ -57,7 +57,7 @@
         </a>
       </div>
 
-      <!-- Mobile Menu Toggle (Ícone Vetorial SVG) -->
+      <!-- Mobile Menu Toggle 1 (Esquerda - Mantido) -->
       <button class="mobile-toggle" aria-label="Abrir menu de navegação" id="mobile-menu-toggle">
         <svg class="menu-svg open-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -67,6 +67,17 @@
         <svg class="menu-svg close-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M18 6L6 18M6 6l12 12"></path>
         </svg>
+      </button>
+
+      <!-- Mobile Menu Toggle 2 (Direita - Novo Botão Circular Terracota com Animação Bolinha -> X) -->
+      <button type="button" class="mobile-toggle-v2" aria-label="Abrir menu de navegação alternativo" id="mobile-menu-toggle-v2" style="touch-action: manipulation; cursor: pointer; -webkit-tap-highlight-color: transparent;">
+        <span class="v2-icon-box">
+          <span class="v2-dot"></span>
+          <svg class="v2-x-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </span>
       </button>
     </div>
 
@@ -683,6 +694,6 @@
   </div>
 
   <!-- Script -->
-  <script src="./script.js?v=5"></script>
+  <script src="./script.js?v=6"></script>
 </body>
 </html>
