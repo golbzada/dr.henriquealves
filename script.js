@@ -36,14 +36,19 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = '';
   }
 
-  mobileToggle?.addEventListener('click', (e) => {
-    e.stopPropagation();
+  function toggleMobileMenu(e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     if (mobileOverlay?.classList.contains('active')) {
       closeMobileMenu();
     } else {
       openMobileMenu();
     }
-  });
+  }
+
+  mobileToggle?.addEventListener('click', toggleMobileMenu);
 
   mobileNavLinks.forEach(link => {
     link.addEventListener('click', (e) => {

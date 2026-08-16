@@ -358,7 +358,6 @@ h1, h2, h3, h4, .font-serif {
 }
 
 /* Mobile Hamburger Button */
-/* Mobile Hamburger Button */
 .mobile-toggle {
   position: absolute;
   right: var(--container-padding);
@@ -366,26 +365,35 @@ h1, h2, h3, h4, .font-serif {
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  width: 26px;
-  height: 18px;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  min-width: 44px;
+  min-height: 44px;
+  width: 44px;
+  height: 44px;
+  padding: 10px 8px;
   background: transparent;
   border: none;
   cursor: pointer;
   z-index: 10001;
-  padding: 0;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .mobile-toggle span {
   display: block;
   height: 2px;
-  width: 100%;
+  width: 26px;
   background-color: var(--text-main);
   border-radius: 2px;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
               opacity 0.25s ease,
               background-color 0.35s ease;
   transform-origin: center;
+  pointer-events: none;
 }
 
 .mobile-toggle.active span:nth-child(1) {
