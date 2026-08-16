@@ -81,7 +81,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const resultadosCards = document.querySelectorAll('.resultados-card');
 
   function bindLightboxCard(card) {
-    card.addEventListener('click', () => {
+    card.addEventListener('click', (e) => {
+      // No mobile (abaixo de 768px), ignora o toque no card para não travar nem disparar ações
+      if (window.innerWidth < 768) {
+        e.preventDefault();
+        return;
+      }
+
       const img = card.querySelector('img');
       const hasTitle = card.hasAttribute('data-title');
       const title = hasTitle ? card.getAttribute('data-title') : (card.classList.contains('resultados-card') ? '' : (img?.alt || 'Dr. Henrique Alves'));

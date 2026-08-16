@@ -68,6 +68,7 @@ html {
   scroll-behavior: smooth;
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
+  background-color: var(--bg-dark);
 }
 
 body {
@@ -183,16 +184,28 @@ h1, h2, h3, h4, .font-serif {
 .badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.85rem;
-  border-radius: var(--radius-pill);
-  font-size: 0.75rem;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  background-color: var(--bg-terracotta-light);
+  letter-spacing: 0.14em;
+  background: transparent;
   color: var(--text-terracotta);
-  border: 1px solid rgba(166, 102, 76, 0.15);
+  border: none;
+  margin-bottom: 0.4rem;
+}
+
+.badge::before,
+.badge::after {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background-color: var(--accent-terracotta);
+  flex-shrink: 0;
 }
 
 /* --------------------------------------------------------------------------
@@ -611,9 +624,11 @@ h1, h2, h3, h4, .font-serif {
   animation: marqueeRightToLeft 55s linear infinite;
 }
 
-/* Pausa a animação ao passar o mouse */
-.social-marquee-wrapper:hover .social-marquee-track {
-  animation-play-state: paused;
+/* Pausa a animação ao passar o mouse (apenas desktop / telas >= 768px) */
+@media (min-width: 768px) {
+  .social-marquee-wrapper:hover .social-marquee-track {
+    animation-play-state: paused;
+  }
 }
 
 /* ANIMAÇÃO DA ROLAGEM CONTINUA */
@@ -756,11 +771,24 @@ h1, h2, h3, h4, .font-serif {
 
 .about-subtitle {
   order: 1;
-  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--text-terracotta);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.14em;
+}
+
+.about-subtitle::before,
+.about-subtitle::after {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background-color: var(--accent-terracotta);
+  flex-shrink: 0;
 }
 
 .about-title {
@@ -963,9 +991,11 @@ h1, h2, h3, h4, .font-serif {
   animation: marqueeLeftToRight 45s linear infinite;
 }
 
-/* Pausa a animação ao passar o mouse */
-.resultados-marquee-wrapper:hover .resultados-marquee-track {
-  animation-play-state: paused;
+/* Pausa a animação ao passar o mouse (apenas desktop / telas >= 768px) */
+@media (min-width: 768px) {
+  .resultados-marquee-wrapper:hover .resultados-marquee-track {
+    animation-play-state: paused;
+  }
 }
 
 /* ANIMAÇÃO DA ROLAGEM CONTINUA (SENTIDO OPOSTO: LEFT TO RIGHT) */
@@ -1017,6 +1047,34 @@ h1, h2, h3, h4, .font-serif {
 
 .resultados-card:hover .resultados-img-wrap img {
   transform: scale(1.04);
+}
+
+@media (max-width: 767px) {
+  .social-marquee-wrapper:hover .social-marquee-track,
+  .resultados-marquee-wrapper:hover .resultados-marquee-track,
+  .social-marquee-wrapper:active .social-marquee-track,
+  .resultados-marquee-wrapper:active .resultados-marquee-track,
+  .social-marquee-wrapper:focus .social-marquee-track,
+  .resultados-marquee-wrapper:focus .resultados-marquee-track {
+    animation-play-state: running !important;
+  }
+
+  .social-card,
+  .resultados-card {
+    cursor: default;
+  }
+
+  .social-card:hover,
+  .resultados-card:hover {
+    transform: none !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04) !important;
+    border-color: var(--border-color) !important;
+  }
+
+  .social-card:hover .social-img-wrap img,
+  .resultados-card:hover .resultados-img-wrap img {
+    transform: none !important;
+  }
 }
 
 @media (max-width: 600px) {
@@ -1158,9 +1216,10 @@ h1, h2, h3, h4, .font-serif {
   position: relative;
   background-color: var(--bg-dark);
   color: #A39B94;
-  padding: 3.5rem 0 2rem;
+  padding: 3rem 0 calc(1.75rem + env(safe-area-inset-bottom, 0px));
   border-top: none;
   font-size: 0.875rem;
+  overflow: hidden;
 }
 
 .footer-grid {
@@ -1220,11 +1279,18 @@ h1, h2, h3, h4, .font-serif {
 }
 
 .footer-bottom {
-  padding-top: 2rem;
+  padding-top: 1.5rem;
+  padding-bottom: 0.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   text-align: center;
   font-size: 0.8rem;
   color: #7A736D;
+}
+
+.footer-bottom p {
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
 }
 
 /* --------------------------------------------------------------------------
