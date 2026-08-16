@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 2. Mobile Menu Fullscreen Overlay
+  // 2. Mobile Menu Fullscreen Overlay (Suporte robusto a toque em celular real)
   const mobileToggle = document.querySelector('.mobile-toggle');
   const mobileOverlay = document.querySelector('.mobile-menu-overlay');
   const mobileNavLinks = document.querySelectorAll('.mobile-nav-list a');
@@ -36,11 +36,18 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = '';
   }
 
+  let lastTouchTime = 0;
+
   function toggleMobileMenu(e) {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
+    if (e && e.type === 'touchend') {
+      lastTouchTime = Date.now();
+      if (e.cancelable) e.preventDefault();
+    } else if (e && e.type === 'click') {
+      if (Date.now() - lastTouchTime < 500) {
+        return; // Evita disparo duplo caso o navegador sintetize evento click logo após touchend
+      }
     }
+    
     if (mobileOverlay?.classList.contains('active')) {
       closeMobileMenu();
     } else {
@@ -48,7 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  mobileToggle?.addEventListener('click', toggleMobileMenu);
+  if (mobileToggle) {
+    mobileToggle.addEventListener('touchend', toggleMobileMenu, { passive: false });
+    mobileToggle.addEventListener('click', toggleMobileMenu);
+  }
 
   mobileNavLinks.forEach(link => {
     link.addEventListener('click', (e) => {
