@@ -357,58 +357,67 @@ h1, h2, h3, h4, .font-serif {
   display: none;
 }
 
-/* Mobile Hamburger Button */
+/* Mobile Toggle Icon (SVG Vetorial Luxo) */
 .mobile-toggle {
   position: absolute;
   right: var(--container-padding);
   top: 50%;
   transform: translateY(-50%);
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 6px;
+  justify-content: center;
   min-width: 44px;
   min-height: 44px;
   width: 44px;
   height: 44px;
-  padding: 10px 8px;
+  padding: 0;
   background: transparent;
   border: none;
   cursor: pointer;
   z-index: 10001;
+  color: var(--text-main);
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
   -webkit-user-select: none;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.mobile-toggle span {
-  display: block;
-  height: 2px;
+.mobile-toggle .menu-svg {
   width: 26px;
-  background-color: var(--text-main);
-  border-radius: 2px;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.25s ease,
-              background-color 0.35s ease;
-  transform-origin: center;
+  height: 26px;
+  display: block;
   pointer-events: none;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
 }
 
-.mobile-toggle.active span:nth-child(1) {
-  transform: translateY(8px) rotate(45deg);
-  background-color: var(--text-terracotta);
+.mobile-toggle .close-svg {
+  display: none;
 }
 
-.mobile-toggle.active span:nth-child(2) {
-  opacity: 0;
-  transform: scaleX(0);
+.mobile-toggle.active {
+  color: var(--accent-terracotta);
 }
 
-.mobile-toggle.active span:nth-child(3) {
-  transform: translateY(-8px) rotate(-45deg);
-  background-color: var(--text-terracotta);
+.mobile-toggle.active .open-svg {
+  display: none;
+}
+
+.mobile-toggle.active .close-svg {
+  display: block;
+  transform: rotate(90deg);
+  animation: rotateInX 0.3s ease forwards;
+}
+
+@keyframes rotateInX {
+  from {
+    transform: rotate(0deg) scale(0.7);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(90deg) scale(1);
+    opacity: 1;
+  }
 }
 
 /* Mobile Menu Fullscreen Overlay */
