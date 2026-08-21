@@ -17,6 +17,52 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // 1.1 Mobile Hamburger Menu Toggle (3 Traços)
+  const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+  const mobileNavDrawer = document.querySelector('.mobile-nav-drawer');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link, .mobile-nav-cta a');
+
+  function toggleMobileMenu(isOpen) {
+    const shouldOpen = isOpen !== undefined ? isOpen : !mobileMenuBtn?.classList.contains('active');
+    if (shouldOpen) {
+      mobileMenuBtn?.classList.add('active');
+      mobileMenuBtn?.setAttribute('aria-expanded', 'true');
+      mobileNavDrawer?.classList.add('active');
+      mobileNavDrawer?.setAttribute('aria-hidden', 'false');
+    } else {
+      mobileMenuBtn?.classList.remove('active');
+      mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+      mobileNavDrawer?.classList.remove('active');
+      mobileNavDrawer?.setAttribute('aria-hidden', 'true');
+    }
+  }
+
+  mobileMenuBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleMobileMenu();
+  });
+
+  // Fechar o menu mobile ao clicar em qualquer link de navegação
+  mobileNavLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      toggleMobileMenu(false);
+    });
+  });
+
+  // Fechar o menu mobile ao clicar fora dele
+  document.addEventListener('click', (e) => {
+    if (mobileNavDrawer?.classList.contains('active') && !mobileNavDrawer.contains(e.target) && !mobileMenuBtn?.contains(e.target)) {
+      toggleMobileMenu(false);
+    }
+  });
+
+  // Fechar ao redimensionar para Desktop
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 992) {
+      toggleMobileMenu(false);
+    }
+  }, { passive: true });
+
   // 2. Smooth Scroll em Links Internos (Desktop e Geral)
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {

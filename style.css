@@ -347,9 +347,10 @@ h1, h2, h3, h4, .font-serif {
   align-items: center;
   justify-content: center;
   position: relative;
+  width: 100%;
 }
 
-/* BRAND MARK (SVG VETORIAL INLINE) */
+/* BRAND MARK (SVG VETORIAL INLINE - CENTRALIZADO NO MOBILE) */
 .brand-logo {
   display: inline-flex;
   flex-direction: column;
@@ -358,6 +359,7 @@ h1, h2, h3, h4, .font-serif {
   text-decoration: none;
   gap: 0.35rem;
   margin: 0 auto;
+  text-align: center;
   transition: all var(--transition-normal);
 }
 
@@ -385,6 +387,7 @@ h1, h2, h3, h4, .font-serif {
   color: var(--accent-terracotta);
   text-transform: uppercase;
   white-space: nowrap;
+  text-align: center;
   transition: all var(--transition-normal);
 }
 
@@ -419,6 +422,147 @@ h1, h2, h3, h4, .font-serif {
 
 .nav-cta {
   display: none;
+}
+
+/* --------------------------------------------------------------------------
+   MOBILE HAMBURGER BUTTON (3 TRAÇOS NA DIREITA) & DRAWER DE NAVEGAÇÃO
+   -------------------------------------------------------------------------- */
+.mobile-menu-btn {
+  position: absolute;
+  right: var(--container-padding, 1.25rem);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  background: rgba(189, 122, 92, 0.08);
+  border: 1px solid rgba(189, 122, 92, 0.22);
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10002;
+  transition: all var(--transition-normal);
+  flex-shrink: 0;
+}
+
+.mobile-menu-btn:hover,
+.mobile-menu-btn:focus-visible {
+  background: rgba(189, 122, 92, 0.16);
+  border-color: var(--accent-terracotta);
+  outline: none;
+}
+
+.hamburger-bar {
+  display: block;
+  width: 22px;
+  height: 2.2px;
+  background-color: var(--accent-terracotta);
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: center;
+}
+
+/* Animação Hamburger -> X Suave */
+.mobile-menu-btn.active .hamburger-bar:nth-child(1) {
+  transform: translateY(7.2px) rotate(45deg);
+}
+
+.mobile-menu-btn.active .hamburger-bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.mobile-menu-btn.active .hamburger-bar:nth-child(3) {
+  transform: translateY(-7.2px) rotate(-45deg);
+}
+
+/* Drawer / Menu Deslizante Mobile */
+.mobile-nav-drawer {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: rgba(250, 247, 242, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-12px);
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.35s ease;
+  pointer-events: none;
+  z-index: 10001;
+}
+
+.mobile-nav-drawer.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.mobile-nav-inner {
+  padding: 1.5rem 1.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.mobile-nav-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.mobile-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1.1rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-main);
+  text-decoration: none;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-subtle);
+  transition: all var(--transition-fast);
+}
+
+.mobile-nav-link span {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent-terracotta);
+  background: var(--bg-terracotta-light);
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-pill);
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link:active {
+  background: var(--bg-terracotta-light);
+  border-color: var(--accent-terracotta);
+  color: var(--text-terracotta);
+  transform: translateX(4px);
+}
+
+.mobile-nav-cta {
+  padding-top: 0.5rem;
+}
+
+.mobile-nav-cta .btn {
+  width: 100%;
 }
 
 /* --------------------------------------------------------------------------
@@ -1454,6 +1598,8 @@ h1, h2, h3, h4, .font-serif {
     margin: 0;
   }
 
+  .mobile-menu-btn,
+  .mobile-nav-drawer,
   .mobile-toggle,
   .mobile-toggle-v2,
   .mobile-menu-overlay,
