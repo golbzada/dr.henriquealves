@@ -144,36 +144,99 @@ h1, h2, h3, h4, .font-serif {
 
 .btn-primary {
   background-color: var(--accent-terracotta);
+  background-image: linear-gradient(
+    135deg, 
+    rgba(255, 255, 255, 0.32) 0%, 
+    rgba(255, 255, 255, 0.12) 35%, 
+    transparent 70%
+  );
   color: #FFFFFF;
-  box-shadow: 0 8px 24px rgba(189, 122, 92, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.4), 0 8px 24px rgba(189, 122, 92, 0.28);
 }
 
 .btn-primary:hover, .btn-primary:focus {
   background-color: var(--accent-terracotta-hover);
+  background-image: linear-gradient(
+    135deg, 
+    rgba(255, 255, 255, 0.40) 0%, 
+    rgba(255, 255, 255, 0.16) 35%, 
+    transparent 70%
+  );
   transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(152, 90, 64, 0.35);
+  box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.5), 0 12px 28px rgba(152, 90, 64, 0.35);
+}
+
+/* Efeito Levemente Pulsante nos Botões da Página (Exceto o botão do Header Desktop) */
+@keyframes btnPulseSubtle {
+  0% {
+    box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.4), 0 6px 18px rgba(189, 122, 92, 0.32);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.4), 0 10px 28px rgba(189, 122, 92, 0.65), 0 0 0 6px rgba(189, 122, 92, 0.15);
+    transform: scale(1.025);
+  }
+  100% {
+    box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.4), 0 6px 18px rgba(189, 122, 92, 0.32);
+    transform: scale(1);
+  }
+}
+
+/* Botões da página com efeito pulsante suave */
+#hero-cta-whatsapp,
+#about-cta-whatsapp,
+#location-cta-whatsapp {
+  animation: btnPulseSubtle 3s ease-in-out infinite;
+}
+
+#hero-cta-whatsapp:hover,
+#about-cta-whatsapp:hover,
+#location-cta-whatsapp:hover {
+  animation-play-state: paused;
+  transform: translateY(-3px) scale(1.03);
+}
+
+/* Exceção Solicitada: O botão do Header Desktop (#header-whatsapp-btn) NUNCA pulse */
+.nav-cta .btn,
+#header-whatsapp-btn {
+  animation: none !important;
+  box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.4), 0 8px 24px rgba(189, 122, 92, 0.28) !important;
 }
 
 .btn-whatsapp {
   background-color: var(--whatsapp-green);
   color: #FFFFFF;
-  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.25);
+  box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.4), 0 8px 24px rgba(37, 211, 102, 0.25);
 }
 
 .btn-whatsapp:hover, .btn-whatsapp:focus {
   background-color: var(--whatsapp-hover);
   transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(37, 211, 102, 0.38);
+  box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.5), 0 12px 28px rgba(37, 211, 102, 0.38);
 }
 
 .btn-outline {
   border: 1px solid var(--accent-terracotta);
   color: var(--text-terracotta);
-  background: transparent;
+  background-color: transparent;
+  background-image: linear-gradient(
+    135deg, 
+    rgba(189, 122, 92, 0.12) 0%, 
+    rgba(189, 122, 92, 0.04) 35%, 
+    transparent 70%
+  );
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.6);
 }
 
 .btn-outline:hover {
   background-color: var(--bg-terracotta-light);
+  background-image: linear-gradient(
+    135deg, 
+    rgba(189, 122, 92, 0.18) 0%, 
+    rgba(189, 122, 92, 0.06) 35%, 
+    transparent 70%
+  );
   transform: translateY(-2px);
 }
 
@@ -185,11 +248,12 @@ h1, h2, h3, h4, .font-serif {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(0.4rem, 2vw, 0.75rem);
+  gap: clamp(0.75rem, 3vw, 1.1rem);
   padding: 0;
   border-radius: 0;
-  font-size: clamp(0.7rem, 2.5vw, 0.8rem);
+  font-size: clamp(0.75rem, 2.5vw, 0.85rem);
   font-weight: 600;
+  font-style: normal;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   background: transparent;
@@ -203,7 +267,7 @@ h1, h2, h3, h4, .font-serif {
 .badge::after {
   content: '';
   display: inline-block;
-  width: clamp(16px, 4vw, 24px);
+  width: clamp(20px, 4vw, 30px);
   height: 1px;
   background-color: var(--accent-terracotta);
   flex-shrink: 0;
@@ -390,8 +454,37 @@ h1, h2, h3, h4, .font-serif {
 
 .hero-title em {
   font-style: italic;
-  color: var(--text-terracotta);
   font-weight: 600;
+}
+
+/* Efeito de Gradiente de Texto Animado Contínuo e Unidirecional (Shimmer Infinito) */
+.gradiente-texto-destaque {
+  font-weight: 600;
+  display: inline;
+  background: linear-gradient(
+    110deg, 
+    #BD7A5C 0%,   /* Cor Base (Terracota) */
+    #BD7A5C 35%,  /* Sustentação da Cor Base */
+    #F8E3D3 50%,  /* Tom Mais Claro (Ponto de Brilho Luminoso) */
+    #BD7A5C 65%,  /* Retorno à Cor Base */
+    #BD7A5C 100%  /* Sustentação da Cor Base */
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: textGradientShimmer 3s linear infinite;
+  will-change: background-position;
+}
+
+/* Animação Unidirecional sem "Ping-Pong" (Passa de um lado ao outro e recomeça continuamente) */
+@keyframes textGradientShimmer {
+  0% {
+    background-position: 150% 0;
+  }
+  100% {
+    background-position: -50% 0;
+  }
 }
 
 .hero-subtitle {
@@ -447,8 +540,26 @@ h1, h2, h3, h4, .font-serif {
   margin: 0.5rem auto;
 }
 
+/* Elemento Decorativo Desfocado (Halo Terracota Hero) */
+.hero-glow-blob {
+  position: absolute;
+  top: -8%;
+  right: -8%;
+  width: 95%;
+  height: 95%;
+  background: radial-gradient(circle, var(--accent-terracotta) 0%, rgba(189, 122, 92, 0.4) 55%, transparent 85%);
+  filter: blur(75px);
+  -webkit-filter: blur(75px);
+  opacity: 0.32;
+  border-radius: 40% 60% 70% 30% / 50% 60% 40% 50%;
+  z-index: 1;
+  pointer-events: none;
+  animation: blobFloat 12s ease-in-out infinite alternate;
+}
+
 .hero-image-wrapper {
   position: relative;
+  z-index: 2;
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-card);
@@ -540,13 +651,28 @@ h1, h2, h3, h4, .font-serif {
   border-bottom: 1px solid var(--border-color);
 }
 
-.social-marquee-wrapper {
+.social-marquee-wrapper,
+.resultados-marquee-wrapper {
   position: relative;
   width: 100%;
   overflow: hidden;
   padding-block: 20px;
   mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.social-marquee-wrapper.is-dragging,
+.resultados-marquee-wrapper.is-dragging {
+  cursor: grabbing !important;
+}
+
+.social-marquee-track,
+.resultados-marquee-track {
+  will-change: transform;
 }
 
 .social-marquee-track {
@@ -609,6 +735,7 @@ h1, h2, h3, h4, .font-serif {
   object-fit: cover;
   object-position: center top;
   transition: transform 0.4s ease;
+  pointer-events: none;
 }
 
 .social-card:hover .social-img-wrap img {
@@ -690,6 +817,7 @@ h1, h2, h3, h4, .font-serif {
 .about-section {
   background-color: var(--bg-secondary);
   position: relative;
+  overflow: hidden;
 }
 
 .about-grid {
@@ -707,9 +835,10 @@ h1, h2, h3, h4, .font-serif {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(0.4rem, 2vw, 0.75rem);
-  font-size: clamp(0.7rem, 2.5vw, 0.8rem);
+  gap: clamp(0.75rem, 3vw, 1.1rem);
+  font-size: clamp(0.75rem, 2.5vw, 0.85rem);
   font-weight: 600;
+  font-style: normal;
   color: var(--text-terracotta);
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -722,7 +851,7 @@ h1, h2, h3, h4, .font-serif {
 .about-subtitle::after {
   content: '';
   display: inline-block;
-  width: clamp(16px, 4vw, 24px);
+  width: clamp(20px, 4vw, 30px);
   height: 1px;
   background-color: var(--accent-terracotta);
   flex-shrink: 0;
@@ -739,8 +868,26 @@ h1, h2, h3, h4, .font-serif {
   position: relative;
 }
 
+/* Elemento Decorativo Desfocado (Halo Terracota Sobre) */
+.about-glow-blob {
+  position: absolute;
+  bottom: -8%;
+  left: -8%;
+  width: 95%;
+  height: 95%;
+  background: radial-gradient(circle, var(--accent-terracotta) 0%, rgba(189, 122, 92, 0.4) 55%, transparent 85%);
+  filter: blur(75px);
+  -webkit-filter: blur(75px);
+  opacity: 0.30;
+  border-radius: 60% 40% 50% 50% / 40% 50% 50% 60%;
+  z-index: 1;
+  pointer-events: none;
+  animation: blobFloatReverse 14s ease-in-out infinite alternate;
+}
+
 .about-img-frame {
   position: relative;
+  z-index: 2;
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-card);
@@ -981,6 +1128,7 @@ h1, h2, h3, h4, .font-serif {
   object-fit: cover;
   object-position: center top;
   transition: transform 0.4s ease;
+  pointer-events: none;
 }
 
 .resultados-card:hover .resultados-img-wrap img {
@@ -1232,36 +1380,10 @@ h1, h2, h3, h4, .font-serif {
 }
 
 /* --------------------------------------------------------------------------
-   13. STICKY FLOATING WHATSAPP BUTTON
+   13. STICKY FLOATING WHATSAPP BUTTON (REMOVIDO A PEDIDO DO USUÁRIO)
    -------------------------------------------------------------------------- */
 .whatsapp-float {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 1.25rem;
-  z-index: 990;
-  display: flex;
-  align-items: center;
-  gap: 0.625rem;
-  background-color: var(--whatsapp-green);
-  color: #FFFFFF;
-  padding: 0.75rem 1.25rem;
-  border-radius: var(--radius-pill);
-  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
-  transition: all var(--transition-normal);
-  animation: floatPulse 3s infinite ease-in-out;
-}
-
-.whatsapp-float:hover {
-  transform: scale(1.05) translateY(-2px);
-  background-color: var(--whatsapp-hover);
-  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.5);
-}
-
-.whatsapp-float span {
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.02em;
-  display: none;
+  display: none !important;
 }
 
 @keyframes floatPulse {
@@ -1455,45 +1577,89 @@ h1, h2, h3, h4, .font-serif {
 }
 
 /* --------------------------------------------------------------------------
-   12. SCROLL REVEAL ANIMATIONS ([data-reveal])
-   FALLBACK DE SEGURANÇA: Se o JavaScript falhar ou não carregar, o conteúdo permanece 100% visível por padrão.
-   A animação só é ativada quando o script.js carrega com sucesso e adiciona a classe .js ao HTML.
+   12. SCROLL REVEAL ANIMATIONS ([data-reveal]) - HWA 60FPS INTERSECTIONOBSERVER
+   FALLBACK DE SEGURANÇA: Se o JavaScript não carregar, o conteúdo permanece 100% visível por padrão.
    -------------------------------------------------------------------------- */
 [data-reveal] {
   opacity: 1;
   transform: none;
-  transition: opacity 0.8s var(--ease-smooth), transform 0.8s var(--ease-smooth);
 }
 
-.js [data-reveal] {
+/* Ativa o estado inicial oculto apenas quando o JS estiver carregado */
+html.js [data-reveal] {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(28px);
+  will-change: transform, opacity;
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.js [data-reveal].in {
+/* Estado Visível quando o elemento entra na tela */
+html.js [data-reveal].in {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* ATRASOS EM CASCATA (Efeito "Dominó") */
-.js [data-reveal][data-d="1"] { transition-delay: 0.08s; }
-.js [data-reveal][data-d="2"] { transition-delay: 0.16s; }
-.js [data-reveal][data-d="3"] { transition-delay: 0.24s; }
-.js [data-reveal][data-d="4"] { transition-delay: 0.32s; }
-.js [data-reveal][data-d="5"] { transition-delay: 0.40s; }
-.js [data-reveal][data-d="6"] { transition-delay: 0.48s; }
+/* Atrasos em Cascata (Stagger Delays) */
+html.js [data-reveal][data-d="1"] { transition-delay: 0.1s; }
+html.js [data-reveal][data-d="2"] { transition-delay: 0.2s; }
+html.js [data-reveal][data-d="3"] { transition-delay: 0.3s; }
+html.js [data-reveal][data-d="4"] { transition-delay: 0.4s; }
+html.js [data-reveal][data-d="5"] { transition-delay: 0.5s; }
+html.js [data-reveal][data-d="6"] { transition-delay: 0.6s; }
 
-/* Acessibilidade: remove o movimento para quem prefere menos animações */
+/* Acessibilidade: Respeita usuários que desativaram animações no SO */
 @media (prefers-reduced-motion: reduce) {
-  [data-reveal],
-  .js [data-reveal] {
+  html.js [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
   }
 
-  .gradient-signature-line {
+  .gradient-signature-line,
+  .gradiente-texto-destaque {
     animation: none !important;
-    background-position: 50% 50% !important;
+    background-position: 0% 50% !important;
+  }
+}
+
+/* Animação suave de flutuação dos halos terracota desfocados (Hero e Sobre) */
+@keyframes blobFloat {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(14px, -12px) scale(1.05);
+  }
+}
+
+@keyframes blobFloatReverse {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(-12px, 14px) scale(1.05);
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-glow-blob {
+    top: -5%;
+    right: -5%;
+    width: 90%;
+    height: 90%;
+    filter: blur(55px);
+    -webkit-filter: blur(55px);
+    opacity: 0.28;
+  }
+
+  .about-glow-blob {
+    bottom: -5%;
+    left: -5%;
+    width: 90%;
+    height: 90%;
+    filter: blur(55px);
+    -webkit-filter: blur(55px);
+    opacity: 0.26;
   }
 }

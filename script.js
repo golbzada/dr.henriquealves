@@ -114,11 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       closeLightbox();
-      closeMobileMenu();
     }
   });
 
-  // 5. Scroll Reveal Animations (IntersectionObserver)
+  // 5. Scroll Reveal Animations (IntersectionObserver a 60fps com aceleração via GPU)
   const revealElements = document.querySelectorAll('[data-reveal]');
 
   if ('IntersectionObserver' in window) {
@@ -137,6 +136,138 @@ document.addEventListener('DOMContentLoaded', () => {
 
     revealElements.forEach(el => revealObserver.observe(el));
   } else {
+    // Fallback para navegadores sem suporte a IntersectionObserver
     revealElements.forEach(el => el.classList.add('in'));
   }
+
+  // 6. Carrossel Infinito e Interativo de Depoimentos (Continuous Marquee Loop 60fps + Pointer Drag + Auto Resume + IntersectionObserver)
+  function initMarqueeLoops() {
+    const wrappers = document.querySelectorAll('.social-marquee-wrapper, .resultados-marquee-wrapper');
+
+    wrappers.forEach(wrapper => {
+      const track = wrapper.querySelector('.social-marquee-track, .resultados-marquee-track');
+      if (!track) return;
+
+      // Desativa animação CSS pura para assumir o controle 60fps via JS com suporte a Drag & Resume
+      track.style.animation = 'none';
+      track.style.willChange = 'transform';
+      wrapper.style.touchAction = 'pan-y';
+      wrapper.style.userSelect = 'none';
+      wrapper.style.webkitUserSelect = 'none';
+
+      // Sentido de rolagem: Left to Right ou Right to Left
+      const isLeftToRight = track.classList.contains('marquee-left-to-right');
+      const speed = isLeftToRight ? 0.65 : -0.65; // Velocidade contínua ultra-suave
+
+      let currentX = isLeftToRight ? -track.scrollWidth / 2 : 0;
+      let isDragging = false;
+      let isVisible = true;
+      let startX = 0;
+      let dragStartX = 0;
+      let hasDragged = false;
+      let halfWidth = 0;
+      let animationFrameId = null;
+
+      const updateHalfWidth = () => {
+        halfWidth = track.scrollWidth / 2;
+      };
+
+      updateHalfWidth();
+      window.addEventListener('resize', updateHalfWidth, { passive: true });
+      window.addEventListener('load', updateHalfWidth, { passive: true });
+
+      // Loop de Animação Contínua (Roda apenas quando a seção estiver visível)
+      const animateMarquee = () => {
+        if (isVisible && !isDragging && halfWidth > 0) {
+          currentX += speed;
+          if (currentX <= -halfWidth) {
+            currentX += halfWidth;
+          } else if (currentX > 0) {
+            currentX -= halfWidth;
+          }
+          track.style.transform = `translate3d(${currentX.toFixed(2)}px, 0, 0)`;
+        }
+        if (isVisible) {
+          animationFrameId = requestAnimationFrame(animateMarquee);
+        }
+      };
+
+      // Pausa a execução no JS quando o carrossel rolar para fora da tela (Economia de CPU/Bateria)
+      if ('IntersectionObserver' in window) {
+        const visibilityObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            const wasVisible = isVisible;
+            isVisible = entry.isIntersecting;
+            if (isVisible && !wasVisible) {
+              cancelAnimationFrame(animationFrameId);
+              animationFrameId = requestAnimationFrame(animateMarquee);
+            }
+          });
+        }, { rootMargin: '100px' });
+        visibilityObserver.observe(wrapper);
+      }
+
+      animationFrameId = requestAnimationFrame(animateMarquee);
+
+      // Manipulação de Arraste (Mouse no PC e Touch no Celular via Pointer Events)
+      const onPointerDown = (e) => {
+        isDragging = true;
+        hasDragged = false;
+        startX = e.clientX;
+        dragStartX = currentX;
+        updateHalfWidth();
+        wrapper.classList.add('is-dragging');
+        if (e.pointerId !== undefined) {
+          try { wrapper.setPointerCapture(e.pointerId); } catch (err) {}
+        }
+      };
+
+      const onPointerMove = (e) => {
+        if (!isDragging) return;
+        const deltaX = e.clientX - startX;
+        if (Math.abs(deltaX) > 5) {
+          hasDragged = true;
+        }
+        currentX = dragStartX + deltaX;
+
+        // Mantém a rotação infinita contínua mesmo se a pessoa arrastar por muito tempo
+        if (halfWidth > 0) {
+          while (currentX <= -halfWidth) {
+            currentX += halfWidth;
+            dragStartX += halfWidth;
+          }
+          while (currentX > 0) {
+            currentX -= halfWidth;
+            dragStartX -= halfWidth;
+          }
+        }
+
+        track.style.transform = `translate3d(${currentX.toFixed(2)}px, 0, 0)`;
+      };
+
+      const onPointerUp = (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        wrapper.classList.remove('is-dragging');
+        if (e && e.pointerId !== undefined) {
+          try { wrapper.releasePointerCapture(e.pointerId); } catch (err) {}
+        }
+      };
+
+      wrapper.addEventListener('pointerdown', onPointerDown, { passive: true });
+      window.addEventListener('pointermove', onPointerMove, { passive: true });
+      window.addEventListener('pointerup', onPointerUp, { passive: true });
+      window.addEventListener('pointercancel', onPointerUp, { passive: true });
+
+      // Previne abrir a foto em lightbox se o usuário estava apenas arrastando
+      wrapper.addEventListener('click', (e) => {
+        if (hasDragged) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }, true);
+    });
+  }
+
+  initMarqueeLoops();
 });
