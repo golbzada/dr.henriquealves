@@ -1,0 +1,1665 @@
+/* ==========================================================================
+   DR. HENRIQUE ALVES - LANDING PAGE CSS (MOBILE FIRST & EDITORIAL DESIGN)
+   Identidade Visual: Neutros quentes, bege, terracota, tipografia de luxo
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. DESIGN TOKENS & VARIABLES
+   -------------------------------------------------------------------------- */
+:root {
+  /* Color Palette */
+  --bg-primary: #FAF7F2;
+  --bg-secondary: #F4EFEA;
+  --bg-card: #FFFFFF;
+  --bg-dark: #1E1B18;
+  --bg-terracotta: #A6664C;
+  --bg-terracotta-light: #F6EEEA;
+  
+  --text-main: #2C2623;
+  --text-muted: #6B625B;
+  --text-light: #FAF7F2;
+  --text-terracotta: #A6664C;
+  --text-gold: #B88E52;
+
+  --border-color: #E6DDD5;
+  --border-color-dark: #3A342F;
+
+  /* Accent Colors */
+  --accent-terracotta: #BD7A5C;
+  --accent-terracotta-hover: #985A40;
+  --accent-gold: #C5A059;
+  --whatsapp-green: #25D366;
+  --whatsapp-hover: #1EBE5D;
+
+  /* Typography */
+  --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+
+  /* Spacing */
+  --container-padding: 1.25rem;
+  --section-padding: 4rem 1.25rem;
+
+  /* Shadow & Radius */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 9999px;
+
+  --shadow-subtle: 0 4px 20px rgba(44, 38, 35, 0.04);
+  --shadow-card: 0 10px 30px rgba(44, 38, 35, 0.07);
+  --shadow-hover: 0 20px 40px rgba(166, 102, 76, 0.15);
+
+  /* Transitions */
+  --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. RESET & BASE STYLES
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  background-color: var(--bg-dark);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* Typography Helpers */
+h1, h2, h3, h4, .font-serif {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--text-main);
+}
+
+.text-terracotta {
+  color: var(--text-terracotta);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+/* --------------------------------------------------------------------------
+   3. BUTTONS & BADGES
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  padding: 1rem 1.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border-radius: var(--radius-pill);
+  transition: all var(--transition-normal);
+  text-align: center;
+  box-shadow: var(--shadow-subtle);
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: var(--accent-terracotta);
+  background-image: linear-gradient(
+    135deg, 
+    rgba(255, 255, 255, 0.32) 0%, 
+    rgba(255, 255, 255, 0.12) 35%, 
+    transparent 70%
+  );
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.4), 0 8px 24px rgba(189, 122, 92, 0.28);
+}
+
+.btn-primary:hover, .btn-primary:focus {
+  background-color: var(--accent-terracotta-hover);
+  background-image: linear-gradient(
+    135deg, 
+    rgba(255, 255, 255, 0.40) 0%, 
+    rgba(255, 255, 255, 0.16) 35%, 
+    transparent 70%
+  );
+  transform: translateY(-2px);
+  box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.5), 0 12px 28px rgba(152, 90, 64, 0.35);
+}
+
+/* Efeito Levemente Pulsante nos Botões da Página (Exceto o botão do Header Desktop) */
+@keyframes btnPulseSubtle {
+  0% {
+    box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.4), 0 6px 18px rgba(189, 122, 92, 0.32);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.4), 0 10px 28px rgba(189, 122, 92, 0.65), 0 0 0 6px rgba(189, 122, 92, 0.15);
+    transform: scale(1.025);
+  }
+  100% {
+    box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.4), 0 6px 18px rgba(189, 122, 92, 0.32);
+    transform: scale(1);
+  }
+}
+
+/* Botões da página com efeito pulsante suave */
+#hero-cta-whatsapp,
+#about-cta-whatsapp,
+#location-cta-whatsapp {
+  animation: btnPulseSubtle 3s ease-in-out infinite;
+}
+
+#hero-cta-whatsapp:hover,
+#about-cta-whatsapp:hover,
+#location-cta-whatsapp:hover {
+  animation-play-state: paused;
+  transform: translateY(-3px) scale(1.03);
+}
+
+/* Exceção Solicitada: O botão do Header Desktop (#header-whatsapp-btn) NUNCA pulse */
+.nav-cta .btn,
+#header-whatsapp-btn {
+  animation: none !important;
+  box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.4), 0 8px 24px rgba(189, 122, 92, 0.28) !important;
+}
+
+.btn-whatsapp {
+  background-color: var(--whatsapp-green);
+  color: #FFFFFF;
+  box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.4), 0 8px 24px rgba(37, 211, 102, 0.25);
+}
+
+.btn-whatsapp:hover, .btn-whatsapp:focus {
+  background-color: var(--whatsapp-hover);
+  transform: translateY(-2px);
+  box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.5), 0 12px 28px rgba(37, 211, 102, 0.38);
+}
+
+.btn-outline {
+  border: 1px solid var(--accent-terracotta);
+  color: var(--text-terracotta);
+  background-color: transparent;
+  background-image: linear-gradient(
+    135deg, 
+    rgba(189, 122, 92, 0.12) 0%, 
+    rgba(189, 122, 92, 0.04) 35%, 
+    transparent 70%
+  );
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+.btn-outline:hover {
+  background-color: var(--bg-terracotta-light);
+  background-image: linear-gradient(
+    135deg, 
+    rgba(189, 122, 92, 0.18) 0%, 
+    rgba(189, 122, 92, 0.06) 35%, 
+    transparent 70%
+  );
+  transform: translateY(-2px);
+}
+
+.btn-full {
+  width: 100%;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.75rem, 3vw, 1.1rem);
+  padding: 0;
+  border-radius: 0;
+  font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+  font-weight: 600;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: transparent;
+  color: var(--text-terracotta);
+  border: none;
+  margin-bottom: 0.4rem;
+  white-space: nowrap;
+}
+
+.badge::before,
+.badge::after {
+  content: '';
+  display: inline-block;
+  width: clamp(20px, 4vw, 30px);
+  height: 1px;
+  background-color: var(--accent-terracotta);
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   4. HEADER & NAVIGATION
+   -------------------------------------------------------------------------- */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10000;
+  transition: all var(--transition-normal);
+  padding: 0.75rem 0;
+  background: rgba(250, 247, 242, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: none;
+}
+
+/* --------------------------------------------------------------------------
+   BARRA FINA DE ASSINATURA VISUAL (GRADIENTE ANIMADO)
+   -------------------------------------------------------------------------- */
+.gradient-signature-line {
+  display: block;
+  width: 100%;
+  height: 2.5px;
+  background: linear-gradient(
+    90deg, 
+    #E8D9C5 0%, 
+    var(--accent-terracotta) 35%, 
+    #C9A050 65%, 
+    #E8D9C5 100%
+  );
+  background-size: 200% 100%;
+  animation: signatureGradientShift 8s linear infinite;
+  border: none;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+}
+
+.header .gradient-signature-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.footer .gradient-signature-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@keyframes signatureGradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.header.scrolled {
+  padding: 0.5rem 0;
+  background: rgba(250, 247, 242, 0.96);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* BRAND MARK (SVG VETORIAL INLINE) */
+.brand-logo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  gap: 0.35rem;
+  margin: 0 auto;
+  transition: all var(--transition-normal);
+}
+
+.brand-mark {
+  width: clamp(34px, 5.5vw, 42px);
+  height: clamp(34px, 5.5vw, 42px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-terracotta);
+  transition: all var(--transition-normal);
+}
+
+.brand-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.brand-name {
+  font-family: var(--font-serif);
+  font-size: clamp(0.78rem, 2.2vw, 0.98rem);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--accent-terracotta);
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: all var(--transition-normal);
+}
+
+/* Header ao rolar */
+.header.scrolled .brand-mark {
+  width: clamp(28px, 4vw, 34px);
+  height: clamp(28px, 4vw, 34px);
+}
+
+.header.scrolled .brand-name {
+  font-size: clamp(0.75rem, 1.3vw, 0.88rem);
+  letter-spacing: 0.2em;
+}
+
+.nav-links {
+  display: none;
+  list-style: none;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-links a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-main);
+  letter-spacing: 0.02em;
+}
+
+.nav-links a:hover {
+  color: var(--text-terracotta);
+}
+
+.nav-cta {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   5. HERO SECTION
+   -------------------------------------------------------------------------- */
+.hero {
+  padding-top: 8.5rem;
+  padding-bottom: 3.5rem;
+  position: relative;
+  background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  overflow: hidden;
+}
+
+.hero-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.hero-content {
+  display: contents;
+}
+
+.hero-title {
+  order: 1;
+  font-size: clamp(2.1rem, 6vw, 3.4rem);
+  font-weight: 500;
+  line-height: 1.15;
+  color: var(--text-main);
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+
+.hero-title em {
+  font-style: italic;
+  font-weight: 600;
+}
+
+/* Efeito de Gradiente de Texto Animado Contínuo e Unidirecional (Shimmer Infinito) */
+.gradiente-texto-destaque {
+  font-weight: 600;
+  display: inline;
+  background: linear-gradient(
+    110deg, 
+    #BD7A5C 0%,   /* Cor Base (Terracota) */
+    #BD7A5C 35%,  /* Sustentação da Cor Base */
+    #F8E3D3 50%,  /* Tom Mais Claro (Ponto de Brilho Luminoso) */
+    #BD7A5C 65%,  /* Retorno à Cor Base */
+    #BD7A5C 100%  /* Sustentação da Cor Base */
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: textGradientShimmer 3s linear infinite;
+  will-change: background-position;
+}
+
+/* Animação Unidirecional sem "Ping-Pong" (Passa de um lado ao outro e recomeça continuamente) */
+@keyframes textGradientShimmer {
+  0% {
+    background-position: 150% 0;
+  }
+  100% {
+    background-position: -50% 0;
+  }
+}
+
+.hero-subtitle {
+  order: 2;
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.hero-cta-group {
+  order: 4;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  align-items: center;
+}
+
+.hero-trust-bar {
+  order: 5;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.trust-item svg {
+  color: var(--accent-terracotta);
+  flex-shrink: 0;
+}
+
+.hero-media {
+  order: 3;
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  margin: 0.5rem auto;
+}
+
+/* Elemento Decorativo Desfocado (Halo Terracota Hero) */
+.hero-glow-blob {
+  position: absolute;
+  top: -8%;
+  right: -8%;
+  width: 95%;
+  height: 95%;
+  background: radial-gradient(circle, var(--accent-terracotta) 0%, rgba(189, 122, 92, 0.4) 55%, transparent 85%);
+  filter: blur(75px);
+  -webkit-filter: blur(75px);
+  opacity: 0.32;
+  border-radius: 40% 60% 70% 30% / 50% 60% 40% 50%;
+  z-index: 1;
+  pointer-events: none;
+  animation: blobFloat 12s ease-in-out infinite alternate;
+}
+
+.hero-image-wrapper {
+  position: relative;
+  z-index: 2;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(230, 221, 213, 0.8);
+  background-color: var(--bg-card);
+}
+
+.hero-image-wrapper img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-floating-card {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  right: 1.25rem;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.hero-floating-card p {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.3;
+}
+
+.hero-floating-card span {
+  font-size: 0.75rem;
+  color: var(--text-terracotta);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.hero-floating-card .crf-group {
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .hero-floating-card .crf-group {
+    display: block;
+    margin-top: 0.15rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. SECTION HEADINGS
+   -------------------------------------------------------------------------- */
+.section {
+  padding: var(--section-padding);
+}
+
+.section-header {
+  margin-bottom: 2.5rem;
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 5vw, 2.75rem);
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
+
+.section-description {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 650px;
+  margin: 0.75rem auto 0;
+}
+
+/* --------------------------------------------------------------------------
+   7. PROVA SOCIAL / DEPOIMENTOS (CARROSSEL MARQUEE CONTINUO)
+   -------------------------------------------------------------------------- */
+.depoimentos {
+  background-color: var(--bg-card);
+  padding-block: 60px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.social-marquee-wrapper,
+.resultados-marquee-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-block: 20px;
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.social-marquee-wrapper.is-dragging,
+.resultados-marquee-wrapper.is-dragging {
+  cursor: grabbing !important;
+}
+
+.social-marquee-track,
+.resultados-marquee-track {
+  will-change: transform;
+}
+
+.social-marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: max-content;
+  animation: marqueeRightToLeft 55s linear infinite;
+}
+
+/* Pausa a animação ao passar o mouse (apenas desktop / telas >= 768px) */
+@media (min-width: 768px) {
+  .social-marquee-wrapper:hover .social-marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+/* ANIMAÇÃO DA ROLAGEM CONTINUA */
+@keyframes marqueeRightToLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ESTILO DOS CARDS DE DEPOIMENTO */
+.social-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 10px;
+  width: 310px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  cursor: pointer;
+}
+
+.social-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(166, 102, 76, 0.18);
+  border-color: var(--accent-terracotta);
+}
+
+/* MOLDURA E ENQUADRAMENTO DA FOTO (Proporção 3:4) */
+.social-img-wrap {
+  width: 100%;
+  aspect-ratio: 970 / 1290;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #EAE5DF;
+  position: relative;
+}
+
+.social-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.4s ease;
+  pointer-events: none;
+}
+
+.social-card:hover .social-img-wrap img {
+  transform: scale(1.04);
+}
+
+@media (max-width: 600px) {
+  .social-card {
+    width: 265px;
+    padding: 8px;
+  }
+}
+
+/* Lightbox Modal */
+.lightbox-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(15, 13, 12, 0.92);
+  backdrop-filter: blur(12px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.lightbox-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 700px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -2.5rem;
+  right: 0;
+  color: #FFFFFF;
+  font-size: 2rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  line-height: 1;
+}
+
+.lightbox-img {
+  max-width: 100%;
+  max-height: 75vh;
+  border-radius: var(--radius-md);
+  object-fit: contain;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-caption {
+  color: #FFFFFF;
+  margin-top: 1rem;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   8. SOBRE / ESPECIALISTA SECTION
+   -------------------------------------------------------------------------- */
+.about-section {
+  background-color: var(--bg-secondary);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.about-content-column {
+  display: contents;
+}
+
+.about-subtitle {
+  order: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.75rem, 3vw, 1.1rem);
+  font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+  font-weight: 600;
+  font-style: normal;
+  color: var(--text-terracotta);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-inline: auto;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.about-subtitle::before,
+.about-subtitle::after {
+  content: '';
+  display: inline-block;
+  width: clamp(20px, 4vw, 30px);
+  height: 1px;
+  background-color: var(--accent-terracotta);
+  flex-shrink: 0;
+}
+
+.about-title {
+  order: 2;
+  font-size: clamp(2rem, 5vw, 3rem);
+  text-align: center;
+}
+
+.about-image-column {
+  order: 3;
+  position: relative;
+}
+
+/* Elemento Decorativo Desfocado (Halo Terracota Sobre) */
+.about-glow-blob {
+  position: absolute;
+  bottom: -8%;
+  left: -8%;
+  width: 95%;
+  height: 95%;
+  background: radial-gradient(circle, var(--accent-terracotta) 0%, rgba(189, 122, 92, 0.4) 55%, transparent 85%);
+  filter: blur(75px);
+  -webkit-filter: blur(75px);
+  opacity: 0.30;
+  border-radius: 60% 40% 50% 50% / 40% 50% 50% 60%;
+  z-index: 1;
+  pointer-events: none;
+  animation: blobFloatReverse 14s ease-in-out infinite alternate;
+}
+
+.about-img-frame {
+  position: relative;
+  z-index: 2;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-color);
+}
+
+.about-img-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.about-content-column > p {
+  order: 4;
+}
+
+.about-text {
+  order: 5;
+}
+
+.about-quote {
+  order: 6;
+}
+
+.credentials-list {
+  order: 7;
+}
+
+.about-content-column > div {
+  order: 8;
+}
+
+.about-text {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.about-text p {
+  margin-bottom: 1rem;
+}
+
+.about-quote {
+  padding: 1.25rem;
+  background: var(--bg-terracotta-light);
+  border-left: 3px solid var(--accent-terracotta);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--text-main);
+  margin: 0.5rem 0;
+}
+
+.credentials-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.credentials-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+.credentials-list svg {
+  color: var(--accent-terracotta);
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   9. DIFERENCIAIS (FILOSOFIA DE TRABALHO)
+   -------------------------------------------------------------------------- */
+.features-section {
+  background-color: var(--bg-primary);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.feature-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-subtle);
+  overflow: hidden;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(166, 102, 76, 0.18);
+  border-color: var(--accent-terracotta);
+}
+
+.feature-img-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background-color: #EAE5DF;
+  position: relative;
+}
+
+.feature-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  transition: transform 0.4s ease;
+}
+
+.feature-card:hover .feature-img-wrap img {
+  transform: scale(1.05);
+}
+
+.feature-card-content {
+  padding: 1.5rem 1.25rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  flex-grow: 1;
+}
+
+.feature-badge {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-terracotta);
+  background: var(--bg-terracotta-light);
+  border: 1px solid rgba(166, 102, 76, 0.25);
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.feature-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.3;
+}
+
+.feature-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-top: 0.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   9.5. SEÇÃO RESULTADOS REAIS - MOSTRANDO (MARQUEE CONTINUO OPOSTO)
+   -------------------------------------------------------------------------- */
+.secao-mostrando {
+  background-color: var(--bg-primary);
+  padding-block: 60px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.resultados-marquee-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-block: 20px;
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.resultados-marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: max-content;
+  animation: marqueeLeftToRight 45s linear infinite;
+}
+
+/* Pausa a animação ao passar o mouse (apenas desktop / telas >= 768px) */
+@media (min-width: 768px) {
+  .resultados-marquee-wrapper:hover .resultados-marquee-track {
+    animation-play-state: paused;
+  }
+}
+
+/* ANIMAÇÃO DA ROLAGEM CONTINUA (SENTIDO OPOSTO: LEFT TO RIGHT) */
+@keyframes marqueeLeftToRight {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* ESTILO DOS CARDS RESULTADOS REAIS */
+.resultados-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 10px;
+  width: 310px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  cursor: pointer;
+}
+
+.resultados-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(166, 102, 76, 0.18);
+  border-color: var(--accent-terracotta);
+}
+
+/* MOLDURA E ENQUADRAMENTO DA FOTO (Proporção 3:4) */
+.resultados-img-wrap {
+  width: 100%;
+  aspect-ratio: 970 / 1290;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #EAE5DF;
+  position: relative;
+}
+
+.resultados-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.4s ease;
+  pointer-events: none;
+}
+
+.resultados-card:hover .resultados-img-wrap img {
+  transform: scale(1.04);
+}
+
+@media (max-width: 767px) {
+  .social-marquee-wrapper:hover .social-marquee-track,
+  .resultados-marquee-wrapper:hover .resultados-marquee-track,
+  .social-marquee-wrapper:active .social-marquee-track,
+  .resultados-marquee-wrapper:active .resultados-marquee-track,
+  .social-marquee-wrapper:focus .social-marquee-track,
+  .resultados-marquee-wrapper:focus .resultados-marquee-track {
+    animation-play-state: running !important;
+  }
+
+  .social-card,
+  .resultados-card {
+    cursor: default;
+  }
+
+  .social-card:hover,
+  .resultados-card:hover {
+    transform: none !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04) !important;
+    border-color: var(--border-color) !important;
+  }
+
+  .social-card:hover .social-img-wrap img,
+  .resultados-card:hover .resultados-img-wrap img {
+    transform: none !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .resultados-card {
+    width: 265px;
+    padding: 8px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   10. LOCALIZAÇÃO E CLÍNICA
+   -------------------------------------------------------------------------- */
+.location-section {
+  background-color: var(--bg-secondary);
+}
+
+.location-card {
+  background: transparent;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.location-info {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.clinic-name {
+  font-size: 1.5rem;
+  color: var(--text-main);
+  line-height: 1.25;
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  background: var(--bg-card);
+  padding: 1.1rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-subtle);
+}
+
+.info-item svg {
+  color: var(--accent-terracotta);
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+}
+
+.info-item strong {
+  color: var(--text-main);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.map-container {
+  width: 100%;
+  height: 300px;
+  background-color: #E5E0D8;
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-color);
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* --------------------------------------------------------------------------
+   11. CTA FINAL BANNER (SEÇÃO FULL-WIDTH)
+   -------------------------------------------------------------------------- */
+.cta-banner-section {
+  padding: 5rem 1.25rem;
+  background: linear-gradient(135deg, var(--bg-dark) 0%, #26201C 100%);
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cta-banner-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 70%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(189, 122, 92, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-banner-card {
+  background: transparent;
+  color: var(--text-light);
+  padding: 0;
+  border-radius: 0;
+  text-align: center;
+  position: relative;
+  overflow: visible;
+  box-shadow: none;
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+.cta-banner-title {
+  font-size: clamp(2rem, 5.5vw, 3.2rem);
+  color: #FFFFFF;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+}
+
+.cta-banner-subtitle {
+  font-size: 1.05rem;
+  color: #D3C9C1;
+  max-width: 620px;
+  margin: 0 auto 2.25rem;
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   12. FOOTER
+   -------------------------------------------------------------------------- */
+.footer {
+  position: relative;
+  background-color: var(--bg-dark);
+  color: #A39B94;
+  padding: 3rem 0 calc(1.75rem + env(safe-area-inset-bottom, 0px));
+  border-top: none;
+  font-size: 0.875rem;
+  overflow: hidden;
+}
+
+.footer-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.footer-brand-logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  margin: 0 auto 1.25rem;
+  width: fit-content;
+}
+
+.footer-brand-logo .brand-mark {
+  width: 36px;
+  height: 36px;
+  color: #BBA059;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.footer-brand-logo .brand-name {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.footer-brand p {
+  max-width: 320px;
+  line-height: 1.6;
+}
+
+.footer-title {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: #FFFFFF;
+  margin-bottom: 0.85rem;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-bottom {
+  padding-top: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+  font-size: 0.8rem;
+  color: #7A736D;
+}
+
+.footer-bottom p {
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   13. STICKY FLOATING WHATSAPP BUTTON (REMOVIDO A PEDIDO DO USUÁRIO)
+   -------------------------------------------------------------------------- */
+.whatsapp-float {
+  display: none !important;
+}
+
+@keyframes floatPulse {
+  0%, 100% {
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+  }
+  50% {
+    box-shadow: 0 12px 35px rgba(37, 211, 102, 0.65);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   14. RESPONSIVE BREAKPOINTS (TABLET & DESKTOP)
+   -------------------------------------------------------------------------- */
+@media (min-width: 640px) {
+  .whatsapp-float span {
+    display: inline;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero-cta-group {
+    flex-direction: row;
+  }
+
+  .hero-cta-group .btn {
+    width: auto;
+  }
+}
+
+@media (min-width: 992px) {
+  :root {
+    --container-padding: 2rem;
+    --section-padding: 6rem 2rem;
+  }
+
+  .nav-container {
+    justify-content: space-between;
+    position: static;
+  }
+
+  .brand-logo {
+    margin: 0;
+  }
+
+  .mobile-toggle,
+  .mobile-toggle-v2,
+  .mobile-menu-overlay,
+  .mobile-drawer {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    opacity: 0 !important;
+    position: static;
+    transform: none;
+  }
+
+  .nav-links {
+    display: flex;
+  }
+
+  .nav-cta {
+    display: flex;
+    align-items: center;
+  }
+
+  .hero {
+    padding-top: 10.5rem;
+    padding-bottom: 5rem;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 1.25rem;
+  }
+
+  .hero-title, .hero-subtitle, .hero-media, .hero-cta-group, .hero-trust-bar {
+    order: initial;
+  }
+
+  .hero-title, .hero-subtitle {
+    text-align: left;
+  }
+
+  .hero-media {
+    margin: 0;
+  }
+
+  .hero-cta-group {
+    align-items: flex-start;
+  }
+
+  .hero-trust-bar {
+    justify-content: flex-start;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 4rem;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    align-items: center;
+    gap: 4rem;
+  }
+
+  .about-content-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .about-subtitle, .about-title, .about-image-column, .about-content-column > p, .about-text, .about-quote, .credentials-list, .about-content-column > div {
+    order: initial;
+  }
+
+  .about-subtitle {
+    margin-inline: 0;
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .about-title {
+    text-align: left;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .location-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-card);
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    overflow: hidden;
+    gap: 0;
+  }
+
+  .location-info {
+    padding: 3rem 2.5rem;
+  }
+
+  .info-item {
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+  }
+
+  .map-container {
+    height: 100%;
+    min-height: 380px;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+
+  .footer-brand-logo {
+    margin: 0 0 1.25rem 0;
+  }
+
+  .gallery-filter {
+    justify-content: center;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   12. SCROLL REVEAL ANIMATIONS ([data-reveal]) - HWA 60FPS INTERSECTIONOBSERVER
+   FALLBACK DE SEGURANÇA: Se o JavaScript não carregar, o conteúdo permanece 100% visível por padrão.
+   -------------------------------------------------------------------------- */
+[data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Ativa o estado inicial oculto apenas quando o JS estiver carregado */
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  will-change: transform, opacity;
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Estado Visível quando o elemento entra na tela */
+html.js [data-reveal].in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Atrasos em Cascata (Stagger Delays) */
+html.js [data-reveal][data-d="1"] { transition-delay: 0.1s; }
+html.js [data-reveal][data-d="2"] { transition-delay: 0.2s; }
+html.js [data-reveal][data-d="3"] { transition-delay: 0.3s; }
+html.js [data-reveal][data-d="4"] { transition-delay: 0.4s; }
+html.js [data-reveal][data-d="5"] { transition-delay: 0.5s; }
+html.js [data-reveal][data-d="6"] { transition-delay: 0.6s; }
+
+/* Acessibilidade: Respeita usuários que desativaram animações no SO */
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .gradient-signature-line,
+  .gradiente-texto-destaque {
+    animation: none !important;
+    background-position: 0% 50% !important;
+  }
+}
+
+/* Animação suave de flutuação dos halos terracota desfocados (Hero e Sobre) */
+@keyframes blobFloat {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(14px, -12px) scale(1.05);
+  }
+}
+
+@keyframes blobFloatReverse {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(-12px, 14px) scale(1.05);
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-glow-blob {
+    top: -5%;
+    right: -5%;
+    width: 90%;
+    height: 90%;
+    filter: blur(55px);
+    -webkit-filter: blur(55px);
+    opacity: 0.28;
+  }
+
+  .about-glow-blob {
+    bottom: -5%;
+    left: -5%;
+    width: 90%;
+    height: 90%;
+    filter: blur(55px);
+    -webkit-filter: blur(55px);
+    opacity: 0.26;
+  }
+}
