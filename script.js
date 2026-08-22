@@ -101,38 +101,99 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 4. Sistema do Modal Lightbox (Zoom de Fotos)
+  // 4. Sistema Completo do Modal Lightbox (Navegação Anterior / Próximo + Touch Swipe + Teclado)
   const lightboxModal = document.querySelector('.lightbox-modal');
   const lightboxImg = document.querySelector('.lightbox-img');
   const lightboxCaption = document.querySelector('.lightbox-caption');
   const lightboxClose = document.querySelector('.lightbox-close');
+  const lightboxPrev = document.querySelector('.lightbox-prev');
+  const lightboxNext = document.querySelector('.lightbox-next');
+
+  let activeGalleryItems = [];
+  let currentGalleryIndex = 0;
+
+  function buildGalleryFromTrack(card) {
+    if (!card) return [];
+    // Encontra o container da seção para isolar a galeria correspondente
+    const section = card.closest('section') || document;
+    const cards = Array.from(section.querySelectorAll('.social-card, .resultados-card'));
+    
+    // Deduplica os cards baseado no src da imagem para não repetir os clones da esteira
+    const uniqueMap = new Map();
+    cards.forEach(c => {
+      const img = c.querySelector('img');
+      if (img && img.src && !uniqueMap.has(img.src)) {
+        const hasTitle = c.hasAttribute('data-title');
+        const title = hasTitle ? c.getAttribute('data-title') : (c.classList.contains('resultados-card') ? '' : (img.alt || 'Dr. Henrique Alves'));
+        const subtitle = c.getAttribute('data-subtitle') || '';
+        uniqueMap.set(img.src, {
+          src: img.src,
+          alt: img.alt || 'Procedimento Dr. Henrique Alves',
+          title: title,
+          subtitle: subtitle
+        });
+      }
+    });
+
+    return Array.from(uniqueMap.values());
+  }
+
+  function renderLightboxImage(item, animate = true) {
+    if (!item || !lightboxImg) return;
+
+    if (animate) {
+      lightboxImg.style.opacity = '0';
+      lightboxImg.style.transform = 'scale(0.97)';
+    }
+
+    setTimeout(() => {
+      lightboxImg.src = item.src;
+      lightboxImg.alt = item.alt;
+
+      if (lightboxCaption) {
+        if (item.title && item.subtitle) {
+          lightboxCaption.innerHTML = `<strong style="font-size: 1.15rem; color: #FFFFFF; font-family: var(--font-serif); letter-spacing: 0.03em;">${item.title}</strong><div style="font-size: 0.9rem; opacity: 0.85; margin-top: 0.35rem; font-family: var(--font-sans); color: #E8E0D7; line-height: 1.4;">${item.subtitle}</div>`;
+        } else if (item.title) {
+          lightboxCaption.innerHTML = `<strong style="font-size: 1.15rem; color: #FFFFFF; font-family: var(--font-serif);">${item.title}</strong>`;
+        } else if (item.subtitle) {
+          lightboxCaption.innerHTML = `<div style="font-size: 0.95rem; opacity: 0.9; font-family: var(--font-sans); color: #E8E0D7; line-height: 1.4;">${item.subtitle}</div>`;
+        } else {
+          lightboxCaption.innerHTML = '';
+        }
+      }
+
+      if (animate) {
+        lightboxImg.style.opacity = '1';
+        lightboxImg.style.transform = 'scale(1)';
+      }
+    }, animate ? 100 : 0);
+  }
 
   function openLightbox(card) {
-    if (!card) return;
+    if (!card || !lightboxModal || !lightboxImg) return;
+
+    activeGalleryItems = buildGalleryFromTrack(card);
     const img = card.querySelector('img');
-    if (!img || !lightboxModal || !lightboxImg) return;
+    const targetSrc = img ? img.src : '';
 
-    const hasTitle = card.hasAttribute('data-title');
-    const title = hasTitle ? card.getAttribute('data-title') : (card.classList.contains('resultados-card') ? '' : (img.alt || 'Dr. Henrique Alves'));
-    const subtitle = card.getAttribute('data-subtitle') || '';
+    currentGalleryIndex = activeGalleryItems.findIndex(item => item.src === targetSrc);
+    if (currentGalleryIndex === -1) currentGalleryIndex = 0;
 
-    lightboxImg.src = img.src;
-    lightboxImg.alt = img.alt || 'Procedimento Dr. Henrique Alves';
-
-    if (lightboxCaption) {
-      if (title && subtitle) {
-        lightboxCaption.innerHTML = `<strong style="font-size: 1.15rem; color: #FFFFFF; font-family: var(--font-serif); letter-spacing: 0.03em;">${title}</strong><div style="font-size: 0.9rem; opacity: 0.85; margin-top: 0.35rem; font-family: var(--font-sans); color: #E8E0D7; line-height: 1.4;">${subtitle}</div>`;
-      } else if (title) {
-        lightboxCaption.innerHTML = `<strong style="font-size: 1.15rem; color: #FFFFFF; font-family: var(--font-serif);">${title}</strong>`;
-      } else if (subtitle) {
-        lightboxCaption.innerHTML = `<div style="font-size: 0.95rem; opacity: 0.9; font-family: var(--font-sans); color: #E8E0D7; line-height: 1.4;">${subtitle}</div>`;
-      } else {
-        lightboxCaption.innerHTML = '';
-      }
+    const currentItem = activeGalleryItems[currentGalleryIndex];
+    if (currentItem) {
+      renderLightboxImage(currentItem, false);
+      lightboxImg.style.opacity = '1';
+      lightboxImg.style.transform = 'scale(1)';
     }
 
     lightboxModal.classList.add('active');
     document.body.style.overflow = 'hidden';
+  }
+
+  function navigateLightbox(direction) {
+    if (!activeGalleryItems.length) return;
+    currentGalleryIndex = (currentGalleryIndex + direction + activeGalleryItems.length) % activeGalleryItems.length;
+    renderLightboxImage(activeGalleryItems[currentGalleryIndex], true);
   }
 
   function closeLightbox() {
@@ -145,17 +206,62 @@ document.addEventListener('DOMContentLoaded', () => {
     closeLightbox();
   });
 
+  lightboxPrev?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    navigateLightbox(-1);
+  });
+
+  lightboxNext?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    navigateLightbox(1);
+  });
+
   lightboxModal?.addEventListener('click', (e) => {
-    if (e.target === lightboxModal || e.target.classList.contains('lightbox-content')) {
+    if (e.target === lightboxModal || e.target.classList.contains('lightbox-content') || e.target.classList.contains('lightbox-img-wrap')) {
       closeLightbox();
     }
   });
 
+  // Navegação por Teclado (ESC, ←, →)
   document.addEventListener('keydown', (e) => {
+    if (!lightboxModal?.classList.contains('active')) return;
     if (e.key === 'Escape') {
       closeLightbox();
+    } else if (e.key === 'ArrowLeft') {
+      navigateLightbox(-1);
+    } else if (e.key === 'ArrowRight') {
+      navigateLightbox(1);
     }
   });
+
+  // Navegação Touch Swipe no Mobile para o Lightbox
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  lightboxModal?.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 1) {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }
+  }, { passive: true });
+
+  lightboxModal?.addEventListener('touchend', (e) => {
+    if (e.changedTouches.length === 1) {
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const diffX = touchEndX - touchStartX;
+      const diffY = touchEndY - touchStartY;
+
+      // Se o gesto for predominantemente horizontal e maior que 40px
+      if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY) * 1.5) {
+        if (diffX < 0) {
+          navigateLightbox(1); // Swipe para a esquerda -> Próxima imagem
+        } else {
+          navigateLightbox(-1); // Swipe para a direita -> Imagem anterior
+        }
+      }
+    }
+  }, { passive: true });
 
   // 5. Scroll Reveal Animations (IntersectionObserver a 60fps)
   const revealElements = document.querySelectorAll('[data-reveal]');

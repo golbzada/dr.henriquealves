@@ -893,23 +893,56 @@ h1, h2, h3, h4, .font-serif {
   }
 }
 
-/* Lightbox Modal */
+/* INSTRUÇÃO VISUAL ELEGANTE / DISCRETA (PÍLULA MINIMALISTA) */
+.gallery-instruction-hint {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  font-family: var(--font-sans);
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+  margin: 0.4rem auto 1.4rem;
+  padding: 0.3rem 0.85rem;
+  background: rgba(189, 122, 92, 0.06);
+  border: 1px solid rgba(189, 122, 92, 0.14);
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  text-align: center;
+}
+
+.gallery-instruction-hint svg {
+  color: var(--accent-terracotta);
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+/* ==========================================================================
+   LIGHTBOX MODAL (VISUALIZAÇÃO COMPLETA + NAVEGAÇÃO ANTERIOR/PRÓXIMO)
+   ========================================================================== */
 .lightbox-modal {
   position: fixed;
   inset: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(12, 10, 9, 0.94);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  z-index: 9999;
+  background: rgba(10, 8, 7, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 99999;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.25rem;
+  padding: 1rem;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y;
 }
 
 .lightbox-modal.active {
@@ -919,13 +952,14 @@ h1, h2, h3, h4, .font-serif {
 
 .lightbox-content {
   position: relative;
-  max-width: 580px;
+  max-width: 900px;
   width: 100%;
-  max-height: 90vh;
+  max-height: 92vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transform: scale(0.95);
+  justify-content: center;
+  transform: scale(0.96);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -933,6 +967,37 @@ h1, h2, h3, h4, .font-serif {
   transform: scale(1);
 }
 
+.lightbox-img-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  max-height: 75vh;
+  touch-action: pan-y;
+}
+
+.lightbox-img {
+  max-width: 100%;
+  max-height: 75vh;
+  width: auto;
+  height: auto;
+  border-radius: 12px;
+  object-fit: contain;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.lightbox-caption {
+  color: #FFFFFF;
+  margin-top: 0.85rem;
+  text-align: center;
+  max-width: 600px;
+  padding: 0 1rem;
+}
+
+/* Botão Fechar */
 .lightbox-close {
   position: absolute;
   top: -3.25rem;
@@ -940,11 +1005,11 @@ h1, h2, h3, h4, .font-serif {
   color: #FFFFFF;
   font-size: 1.75rem;
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: 50%;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -958,20 +1023,59 @@ h1, h2, h3, h4, .font-serif {
   transform: scale(1.08);
 }
 
-.lightbox-img {
-  max-width: 100%;
-  max-height: 72vh;
-  border-radius: 14px;
-  object-fit: contain;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+/* Botões de Navegação (Anterior / Próximo) */
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+  backdrop-filter: blur(10px);
 }
 
-.lightbox-caption {
-  color: #FFFFFF;
-  margin-top: 1rem;
-  text-align: center;
-  max-width: 500px;
+.lightbox-nav:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.lightbox-prev {
+  left: -1rem;
+}
+
+.lightbox-next {
+  right: -1rem;
+}
+
+@media (max-width: 768px) {
+  .lightbox-prev {
+    left: 0.25rem;
+  }
+  .lightbox-next {
+    right: 0.25rem;
+  }
+  .lightbox-nav {
+    width: 42px;
+    height: 42px;
+    background: rgba(12, 10, 9, 0.65);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+  .lightbox-close {
+    top: -2.85rem;
+    right: 0.25rem;
+  }
+  .lightbox-img {
+    max-height: 70vh;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -1132,12 +1236,40 @@ h1, h2, h3, h4, .font-serif {
    -------------------------------------------------------------------------- */
 .features-section {
   background-color: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.features-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Elemento Decorativo Desfocado (Halo Terracota Diferenciais) */
+.features-glow-blob {
+  position: absolute;
+  bottom: -15%;
+  right: -8%;
+  width: 580px;
+  height: 580px;
+  max-width: 65vw;
+  max-height: 65vw;
+  background: radial-gradient(circle, var(--accent-terracotta) 0%, rgba(189, 122, 92, 0.4) 55%, transparent 85%);
+  filter: blur(90px);
+  -webkit-filter: blur(90px);
+  opacity: 0.20;
+  border-radius: 50% 50% 40% 60% / 60% 40% 60% 40%;
+  z-index: 1;
+  pointer-events: none;
+  animation: blobFloat 14s ease-in-out infinite alternate;
 }
 
 .features-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
+  position: relative;
+  z-index: 2;
 }
 
 .feature-card {
@@ -1218,12 +1350,38 @@ h1, h2, h3, h4, .font-serif {
 .secao-mostrando {
   background-color: var(--bg-primary);
   padding-block: 60px;
+  position: relative;
   overflow: hidden;
   border-bottom: 1px solid var(--border-color);
 }
 
+.secao-mostrando .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Elemento Decorativo Desfocado Dourado (Halo Dourado Resultados Reais) */
+.mostrando-glow-blob {
+  position: absolute;
+  top: -15%;
+  left: -8%;
+  width: 580px;
+  height: 580px;
+  max-width: 65vw;
+  max-height: 65vw;
+  background: radial-gradient(circle, var(--accent-gold) 0%, rgba(197, 160, 89, 0.4) 55%, transparent 85%);
+  filter: blur(90px);
+  -webkit-filter: blur(90px);
+  opacity: 0.20;
+  border-radius: 60% 40% 50% 50% / 40% 50% 50% 60%;
+  z-index: 1;
+  pointer-events: none;
+  animation: blobFloatReverse 15s ease-in-out infinite alternate;
+}
+
 .resultados-marquee-wrapper {
   position: relative;
+  z-index: 2;
   width: 100%;
   overflow: hidden;
   padding-block: 20px;
@@ -1338,6 +1496,47 @@ h1, h2, h3, h4, .font-serif {
    -------------------------------------------------------------------------- */
 .location-section {
   background-color: var(--bg-secondary);
+  position: relative;
+  overflow: hidden;
+}
+
+.location-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Elemento Decorativo Desfocado Sutil (Halo Terracota Localização) */
+.location-glow-blob {
+  position: absolute;
+  bottom: -15%;
+  right: -8%;
+  width: 560px;
+  height: 560px;
+  max-width: 65vw;
+  max-height: 65vw;
+  background: radial-gradient(circle, var(--accent-terracotta) 0%, rgba(189, 122, 92, 0.35) 55%, transparent 85%);
+  filter: blur(100px);
+  -webkit-filter: blur(100px);
+  opacity: 0.16;
+  border-radius: 45% 55% 65% 35% / 55% 45% 55% 45%;
+  z-index: 1;
+  pointer-events: none;
+  animation: blobFloat 16s ease-in-out infinite alternate;
+}
+
+/* Padrão Decorativo de Pontos (Grid Discreta de Pontinhos) */
+.location-dots-pattern {
+  position: absolute;
+  top: 2.5rem;
+  left: 2.5rem;
+  width: 140px;
+  height: 140px;
+  background-image: radial-gradient(var(--accent-terracotta) 1.5px, transparent 1.5px);
+  background-size: 18px 18px;
+  opacity: 0.14;
+  pointer-events: none;
+  z-index: 1;
+  display: none; /* Oculto por padrão no mobile */
 }
 
 .location-card {
@@ -1348,6 +1547,8 @@ h1, h2, h3, h4, .font-serif {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  position: relative;
+  z-index: 2;
 }
 
 .location-info {
@@ -1696,6 +1897,10 @@ h1, h2, h3, h4, .font-serif {
     grid-template-columns: repeat(4, 1fr);
   }
 
+  .location-dots-pattern {
+    display: block;
+  }
+
   .location-card {
     background: var(--bg-card);
     border-radius: var(--radius-lg);
@@ -1826,5 +2031,35 @@ html.js [data-reveal][data-d="6"] { transition-delay: 0.6s; }
     filter: blur(55px);
     -webkit-filter: blur(55px);
     opacity: 0.26;
+  }
+
+  .features-glow-blob {
+    bottom: -8%;
+    right: -12%;
+    width: 320px;
+    height: 320px;
+    filter: blur(60px);
+    -webkit-filter: blur(60px);
+    opacity: 0.16;
+  }
+
+  .mostrando-glow-blob {
+    top: -6%;
+    left: -12%;
+    width: 320px;
+    height: 320px;
+    filter: blur(60px);
+    -webkit-filter: blur(60px);
+    opacity: 0.16;
+  }
+
+  .location-glow-blob {
+    bottom: -6%;
+    right: -12%;
+    width: 300px;
+    height: 300px;
+    filter: blur(65px);
+    -webkit-filter: blur(65px);
+    opacity: 0.13;
   }
 }

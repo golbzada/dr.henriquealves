@@ -152,6 +152,15 @@
       <div class="section-header" data-reveal>
         <span class="badge"><span class="gradiente-texto-destaque">Experiências Reais</span></span>
         <h2 class="section-title">Quem conhece o atendimento, aprova</h2>
+        <p class="gallery-instruction-hint" data-reveal data-d="1">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <polyline points="9 21 3 21 3 15"></polyline>
+            <line x1="21" y1="3" x2="14" y2="10"></line>
+            <line x1="3" y1="21" x2="10" y2="14"></line>
+          </svg>
+          <span>Toque para ampliar</span>
+        </p>
       </div>
     </div>
 
@@ -441,6 +450,8 @@
         </div>
       </div>
     </div>
+    <!-- Elemento Decorativo Desfocado (Halo Terracota Diferenciais) -->
+    <div class="features-glow-blob" aria-hidden="true"></div>
   </section>
 
   <!-- ==========================================
@@ -451,6 +462,15 @@
       <div class="section-header" data-reveal>
         <span class="badge"><span class="gradiente-texto-destaque">Resultados Reais</span></span>
         <h2 class="section-title">Melhor do que falar, é mostrar, não é mesmo?</h2>
+        <p class="gallery-instruction-hint" data-reveal data-d="1">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <polyline points="9 21 3 21 3 15"></polyline>
+            <line x1="21" y1="3" x2="14" y2="10"></line>
+            <line x1="3" y1="21" x2="10" y2="14"></line>
+          </svg>
+          <span>Toque para ampliar</span>
+        </p>
       </div>
     </div>
 
@@ -546,12 +566,16 @@
 
       </div>
     </div>
+    <!-- Elemento Decorativo Desfocado Dourado (Halo Dourado Resultados Reais) -->
+    <div class="mostrando-glow-blob" aria-hidden="true"></div>
   </section>
 
   <!-- ==========================================
        6. LOCALIZAÇÃO E CLÍNICA
        ========================================== -->
   <section class="section location-section" id="localizacao">
+    <!-- Padrão Decorativo de Pontos (Grid Desktop) -->
+    <div class="location-dots-pattern" aria-hidden="true"></div>
     <div class="container">
       <div class="section-header text-center" data-reveal>
         <span class="badge"><span class="gradiente-texto-destaque">Onde Estamos</span></span>
@@ -611,6 +635,8 @@
         </div>
       </div>
     </div>
+    <!-- Elemento Decorativo Desfocado (Halo Terracota Localização) -->
+    <div class="location-glow-blob" aria-hidden="true"></div>
   </section>
 
 
@@ -666,12 +692,27 @@
 
 
 
-  <!-- Lightbox Zoom Modal -->
-  <div class="lightbox-modal" aria-hidden="true">
+  <!-- Lightbox Zoom Modal com Navegação (Anterior / Próximo + Touch Swipe) -->
+  <div class="lightbox-modal" aria-hidden="true" role="dialog" aria-label="Visualizador de imagem em tela cheia">
     <div class="lightbox-content">
-      <button class="lightbox-close" aria-label="Fechar imagem">&times;</button>
-      <img src="" alt="" class="lightbox-img">
-      <div class="lightbox-caption" style="color: #FAF7F2; text-align: center; margin-top: 1rem;"></div>
+      <button class="lightbox-close" aria-label="Fechar visualização">&times;</button>
+      
+      <!-- Botão Anterior -->
+      <button class="lightbox-nav lightbox-prev" aria-label="Imagem anterior">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+
+      <!-- Imagem Central em Proporção Completa -->
+      <div class="lightbox-img-wrap">
+        <img src="" alt="" class="lightbox-img">
+      </div>
+
+      <!-- Botão Próximo -->
+      <button class="lightbox-nav lightbox-next" aria-label="Próxima imagem">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+
+      <div class="lightbox-caption"></div>
     </div>
   </div>
 
